@@ -6,6 +6,16 @@ Bu depo, projenin mobil arayüz ve istemci (client) kaynak kodlarını barındı
 
 ---
 
+## 🌐 Veri Entegrasyonu & TMDB API Mimarisi
+
+Uygulamadaki gerçek zamanlı film verileri, küresel sinema veritabanı **The Movie Database (TMDB) API** entegrasyonu ile dinamik olarak yönetilmektedir. Veri çekme ve listeleme mimarisi şu adımlarla çalışır:
+
+1. **RESTful API İstekleri:** Popüler filmler ve vizyondaki güncel yapımlar, TMDB'nin `movie/popular` uç noktasına (endpoint) asenkron HTTP istekleri atılarak JSON formatında çekilir.
+2. **Arka Plan Görsel İşleme (Glide Integration):** TMDB API'den dönen saf veri içindeki poster kodları (Örn: `/abc123xyz.jpg`), Glide kütüphanesi yardımıyla TMDB'nin yüksek hızlı görsel sunucularına (`https://image.tmdb.org/t/p/w500`) bağlanır.
+3. **Önbelleğe Alma (Caching) & Performans:** Görseller telefona indirilirken arka planda otomatik olarak önbelleğe (cache) alınır. Bu sayede kullanıcı sayfayı her yukarı-aşağı kaydırdığında internet kotası harcanmaz ve arayüzde donma/kasılma (stuttering) yaşanmaz.
+
+4. ----
+
 ## 🚀 Proje Mimarisi ve Mühendislik Çözümleri
 
 Bir yazılım mühendisi adayı olarak bu projede, kurumsal mimari standartlarına uyum sağlamak ve mobil-sunucu arasındaki veri transferini en optimize hale getirmek için şu kritik çözümler uygulanmıştır:
